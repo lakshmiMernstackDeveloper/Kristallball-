@@ -1,9 +1,15 @@
 🛡️ Kristallball Military Asset Management System
+
 Kristallball is an enterprise-grade tracking platform designed for real-time visibility of critical military hardware across global sectors. It ensures transactional integrity, role-based security, and a forensic audit trail.
+
 🔗 Live System Links
+
 Command Interface (Frontend): View Live Site
+
 Command API (Backend): View API Status
+
 📉 Data Relationship Diagram (ERD)
+
 This diagram illustrates how assets, bases, and personnel are interconnected.
 code
 Mermaid
