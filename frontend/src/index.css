@@ -1,7 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 @import "tailwindcss";
-body {
-  @apply bg-gray-50 text-slate-900;
+
+@layer base {
+  body {
+    /* Using bg-slate-50 instead of gray-50 for better v4 compatibility */
+    @apply bg-slate-50 text-slate-900;
+  }
 }
