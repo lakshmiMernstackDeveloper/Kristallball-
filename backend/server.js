@@ -59,11 +59,12 @@ const PORT = process.env.PORT || 5000;
  * In production (Vercel), we export the app instead.
  */
 if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => {
-        console.log(`-----------------------------------------------`);
-        console.log(`KRISTALLBALL LOCAL STARTING ON PORT ${PORT}`);
-        console.log(`-----------------------------------------------`);
-    });
+  const PORT = process.env.PORT || 5000;
+app.listen(PORT, '0.0.0.0', () => { // Adding '0.0.0.0' helps Render detect the service
+    console.log(`-----------------------------------------------`);
+    console.log(`KRISTALLBALL COMMAND API LIVE ON PORT ${PORT}`);
+    console.log(`-----------------------------------------------`);
+});
 }
 
 // THIS EXPORTS THE APP FOR VERCEL TO HANDLE AS A SERVERLESS FUNCTION
