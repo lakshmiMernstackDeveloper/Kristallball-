@@ -4,9 +4,9 @@ Kristallball is an enterprise-grade tracking platform designed for real-time vis
 
 🔗 Live System Links
 
-Command Interface (Frontend): View Live Site
+Command Interface (Frontend):  https://kristallball-frontend-v0hy.onrender.com
 
-Command API (Backend): View API Status
+Command API (Backend):  https://kristallball-backend-ix70.onrender.com
 
 📉 Data Relationship Diagram (ERD)
 
