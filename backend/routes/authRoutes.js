@@ -3,7 +3,7 @@ const router = express.Router();
 const authController = require('../controllers/authController');
 const db = require('../config/db'); 
 
-// Authentication Endpoints
+// Authentication Endpoints add
 router.post('/register', authController.register);
 router.post('/login', authController.login);
 
