@@ -1,26 +1,32 @@
 const { Pool } = require("pg");
+const schema = require("../models/schema");
 require("dotenv").config();
 
-
+// Standard connection for Cloud Hosting
 const db = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false, 
-  },
+    rejectUnauthorized: false // Required for Supabase/Render connections
+  }
 });
 
+/**
+ * Cloud Bootstrap Function
+ * Simplified for Render/Supabase
+ */
 const initializeSystem = async () => {
   try {
-    const poolClient = await db.connect();
-    console.log("📡 CONNECTION SUCCESS: Connected to Supabase Cloud.");
+    const client = await db.connect();
+    console.log(`📡 CLOUD CONNECTION: Syncing with Supabase...`);
     
-    const schema = require("../models/schema");
-    await poolClient.query(schema);
-        console.log("✅ MILITARY GRID READY: Tables are live on Supabase.");
-    poolClient.release();
+    // In production, we only verify/create the TABLES, not the Database itself
+    await client.query(schema);
+    
+    console.log("✅ MILITARY GRID READY: All tables are verified.");
+    client.release();
   } catch (err) {
-    console.error("❌ Supabase Initialization Error:", err.message);
-    console.log("HINT: Check if DATABASE_URL in .env matches the Transaction Pooler string.");
+    console.error("❌ Schema Sync Error:", err.message);
+    // Do not process.exit() here, let the server try to start
   }
 };
 
