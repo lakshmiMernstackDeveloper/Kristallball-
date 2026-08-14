@@ -5,42 +5,42 @@ Kristallball is an enterprise-grade tracking platform designed for real-time vis
 <table width="100%">
 <thead>
 <tr bgcolor="#f1f5f9">
-<th align="left" width="25%">Module Name</th>
-<th align="left" width="45%">Operational Description</th>
-<th align="left" width="30%">Direct Link</th>
+<th align="left" width="20%">Module Name</th>
+<th align="left" width="55%">Operational Purpose (Short Description)</th>
+<th align="left" width="25%">Direct Command Link</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><b>Secure Authentication</b></td>
-<td>Gateway for encrypted session initialization via JWT clearance.</td>
-<td><a href="https://kristallball-frontend-v0hy.onrender.com/login">Authorize Access</a></td>
+<td><b>Secure Gateway</b></td>
+<td>Encrypted entry point for JWT-based personnel authentication.</td>
+<td><a href="https://kristallball-frontend-v0hy.onrender.com/login">/login</a></td>
 </tr>
 <tr>
-<td><b>Strategic Dashboard</b></td>
-<td>Real-time HUD for global readiness and inventory analytics.</td>
-<td><a href="https://kristallball-frontend-v0hy.onrender.com/dashboard">Launch Console</a></td>
+<td><b>Command HUD</b></td>
+<td>Intelligence dashboard displaying real-time inventory math and readiness.</td>
+<td><a href="https://kristallball-frontend-v0hy.onrender.com/dashboard">/dashboard</a></td>
 </tr>
 <tr>
-<td><b>Field Deployment</b></td>
-<td>Interface for recording consumption and equipment expenditure.</td>
-<td><a href="https://kristallball-frontend-v0hy.onrender.com/assignments">Open Registry</a></td>
+<td><b>Asset Registry</b></td>
+<td>Logging interface for personnel assignments and equipment expenditures.</td>
+<td><a href="https://kristallball-frontend-v0hy.onrender.com/assignments">/assignments</a></td>
 </tr>
 <tr>
-<td><b>Asset Acquisition</b></td>
-<td>Acquisition log for registering new inbound stock arrivals.</td>
-<td><a href="https://kristallball-frontend-v0hy.onrender.com/purchases">Inbound Logistics</a></td>
+<td><b>Logistics Input</b></td>
+<td>Procurement portal for registering new incoming industrial stock shipments.</td>
+<td><a href="https://kristallball-frontend-v0hy.onrender.com/purchases">/purchases</a></td>
 </tr>
 <tr>
-<td><b>Logistics Hub</b></td>
-<td>Auditable module for atomic asset movement between bases.</td>
-<td><a href="https://kristallball-frontend-v0hy.onrender.com/transfers">Execute Transfer</a></td>
+<td><b>Sector Transfer</b></td>
+<td>Tactical module for executing atomic asset movement between global bases.</td>
+<td><a href="https://kristallball-frontend-v0hy.onrender.com/transfers">/transfers</a></td>
 </tr>
 </tbody>
 </table>
 <br>
 📉 Data Relationship Diagram (ERD)
-This diagram illustrates how assets, bases, and personnel are interconnected within the PostgreSQL engine.
+This diagram illustrates the relational connections between assets, bases, and personnel managed within the PostgreSQL engine.
 code
 Mermaid
 erDiagram
@@ -55,122 +55,137 @@ erDiagram
     
     USERS ||--o{ TRANSFERS : "authorizes"
     USERS ||--o{ AUDIT_LOGS : "logs activity"
+<br>
 <h2>🗄️ Database Architecture (Table Definitions)</h2>
-<p>The system utilizes a relational PostgreSQL database to ensure <b>ACID compliance</b> across all global logistics transactions.</p>
+<p>The system utilizes a relational PostgreSQL database ensuring <b>ACID compliance</b> for all global logistics transactions.</p>
 <h3>1. Table: bases</h3>
-<p>Storage for physical military installations.</p>
 <table width="100%">
-<tr bgcolor="#f1f5f9">
-<th align="left">Column Name</th>
-<th align="left">Data Type</th>
-<th align="left">Description</th>
+<tr bgcolor="#f8fafc">
+<th align="left" width="30%">Column Name</th>
+<th align="left" width="20%">Data Type</th>
+<th align="left" width="50%">Description</th>
 </tr>
 <tr>
-<td><b>id</b></td>
+<td><code>id</code></td>
 <td>SERIAL</td>
-<td>Unique Identifier (Primary Key)</td>
+<td>Primary Key: Unique Deployment Identifier</td>
 </tr>
 <tr>
-<td><b>name</b></td>
+<td><code>name</code></td>
 <td>VARCHAR(100)</td>
-<td>Installation Name (e.g., Ramstein Air Base)</td>
+<td>Installation Title (e.g. Fort Liberty)</td>
 </tr>
 <tr>
-<td><b>location</b></td>
+<td><code>location</code></td>
 <td>VARCHAR(150)</td>
-<td>Geographic Sector or Country</td>
+<td>Physical Sector / Country coordinates</td>
 </tr>
 </table>
 <h3>2. Table: users</h3>
-<p>Authorized personnel with role-based security clearances.</p>
 <table width="100%">
-<tr bgcolor="#f1f5f9">
-<th align="left">Column Name</th>
-<th align="left">Data Type</th>
-<th align="left">Description</th>
+<tr bgcolor="#f8fafc">
+<th align="left" width="30%">Column Name</th>
+<th align="left" width="20%">Data Type</th>
+<th align="left" width="50%">Description</th>
 </tr>
 <tr>
-<td><b>id</b></td>
+<td><code>id</code></td>
 <td>SERIAL</td>
-<td>Personnel Unique ID</td>
+<td>Primary Key: Personnel Unique ID</td>
 </tr>
 <tr>
-<td><b>username</b></td>
+<td><code>username</code></td>
 <td>VARCHAR(50)</td>
-<td>Secure account identifier</td>
+<td>Credential Name (Unique constraint)</td>
 </tr>
 <tr>
-<td><b>role</b></td>
+<td><code>role</code></td>
 <td>VARCHAR(30)</td>
-<td>ADMIN, BASE_COMMANDER, LOGISTICS_OFFICER</td>
+<td>Clearance: ADMIN, COMMANDER, LOGISTICS</td>
 </tr>
 <tr>
-<td><b>base_id</b></td>
+<td><code>base_id</code></td>
 <td>INT (FK)</td>
-<td>Linked station (References <b>bases.id</b>)</td>
+<td>Sector Assignment (Links to <b>bases.id</b>)</td>
 </tr>
 </table>
 <h3>3. Table: purchases</h3>
-<p>Log of new inventory arrivals from the industrial supply chain.</p>
 <table width="100%">
-<tr bgcolor="#f1f5f9">
-<th align="left">Column Name</th>
-<th align="left">Data Type</th>
-<th align="left">Description</th>
+<tr bgcolor="#f8fafc">
+<th align="left" width="30%">Column Name</th>
+<th align="left" width="20%">Data Type</th>
+<th align="left" width="50%">Description</th>
 </tr>
 <tr>
-<td><b>id</b></td>
+<td><code>id</code></td>
 <td>SERIAL</td>
-<td>Acquisition Serial Number</td>
+<td>Primary Key: Acquisition ID</td>
 </tr>
 <tr>
-<td><b>base_id</b></td>
+<td><code>base_id</code></td>
 <td>INT (FK)</td>
-<td>Destination Base (Receiving Hub)</td>
+<td>Receiving installation ID</td>
 </tr>
 <tr>
-<td><b>equipment_type_id</b></td>
+<td><code>equipment_type_id</code></td>
 <td>INT (FK)</td>
-<td>References <b>equipment_types.id</b></td>
+<td>Category ID from equipment master</td>
 </tr>
 <tr>
-<td><b>quantity</b></td>
+<td><code>quantity</code></td>
 <td>INT</td>
-<td>Number of units acquired</td>
+<td>Inbound unit volume</td>
 </tr>
 </table>
 <h3>4. Table: transfers</h3>
-<p>Transactional records for atomic stock movement across global bases.</p>
 <table width="100%">
-<tr bgcolor="#f1f5f9">
-<th align="left">Column Name</th>
-<th align="left">Data Type</th>
-<th align="left">Description</th>
+<tr bgcolor="#f8fafc">
+<th align="left" width="30%">Column Name</th>
+<th align="left" width="20%">Data Type</th>
+<th align="left" width="50%">Description</th>
 </tr>
 <tr>
-<td><b>id</b></td>
+<td><code>id</code></td>
 <td>SERIAL</td>
-<td>Log Record Key</td>
+<td>Primary Key: Transfer Record ID</td>
 </tr>
 <tr>
-<td><b>source_base_id</b></td>
+<td><code>source_base_id</code></td>
 <td>INT (FK)</td>
-<td>Dispatch location</td>
+<td>Dispatching Installation</td>
 </tr>
 <tr>
-<td><b>destination_base_id</b></td>
+<td><code>destination_base_id</code></td>
 <td>INT (FK)</td>
-<td>Receiving location</td>
+<td>Arrival Installation</td>
 </tr>
 <tr>
-<td><b>quantity</b></td>
+<td><code>quantity</code></td>
 <td>INT</td>
-<td>Movement volume (Atomic Shift)</td>
+<td>Net movement units (Atomic Transaction)</td>
 </tr>
 </table>
-📈 Inventory Logic & Math Model
-The system utilizes a complex SQL aggregation engine to ensure that readiness data is accurate to the second without data redundancy.
-A. Net Movement Calculation
-Net Movement = Purchases + Transfers In - Transfers Out
-B. Closing Balance Calculation
-Closing Balance = Opening Balance + Net Movement - Expended
+<br>
+📉 Inventory Logic & Math Model
+<p>The backend utilizes real-time SQL aggregation to compute readiness levels dynamically without data duplication.</p>
+<table width="100%">
+<tr bgcolor="#f1f5f9">
+<th align="left" width="25%">Formula Component</th>
+<th align="left" width="75%">Mathematical Logic</th>
+</tr>
+<tr>
+<td><b>Net Movement</b></td>
+<td><code>Purchases + Transfers_In - Transfers_Out</code></td>
+</tr>
+<tr>
+<td><b>Closing Balance</b></td>
+<td><code>Opening_Balance + Net_Movement - Expended</code></td>
+</tr>
+</table>
+<br>
+🔐 Security & RBAC
+<ul>
+<li><b>Global Admin:</b> Full oversight of all bases and forensic audit log access.</li>
+<li><b>Logistics Officer:</b> Authorization to manage cross-border transfers and new procurement logs.</li>
+<li><b>Base Commander:</b> Access restricted to their assigned <code>base_id</code> via middleware isolation.</li>
+</ul>
